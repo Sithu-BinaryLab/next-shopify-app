@@ -1,0 +1,10 @@
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { fetchCategoires } from "@/app/api/mutations/categories/fetchCategories";
+
+export const useFetchCategories = (): UseQueryResult<string[], Error> => {
+  return useQuery<any, Error>({
+    queryKey: ["categories data list"],
+    queryFn: fetchCategoires,
+    retry: 1,
+  });
+};
