@@ -1,6 +1,7 @@
 import { axiosInstance } from "@/lib/axiosInstance";
+import { LoginRequest } from "@/app/type/account";
 
-export const fetchLoginAccount = async (body: any) => {
+export const fetchLoginAccount = async (body: LoginRequest) => {
   try {
     const payload = {
       username: body.email,

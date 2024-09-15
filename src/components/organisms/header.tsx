@@ -13,8 +13,8 @@ import LogIn from "@/components/organisms/login";
 
 function Header() {
   const [pathname, setPathname] = useState<string>("");
-  const [openLogIn, setOpenLogIn] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [openLogIn, setOpenLogIn] = useState<boolean>(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [user, _] = useAtom(userToken);
   const [cart, addItemToCart] = useAtom(cartAtom);
 
