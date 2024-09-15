@@ -35,7 +35,7 @@ export default function Home() {
 
   const MenClothing = () => (
     <div className="lg:w-3/5 py-4 lg:py-0 w-full cursor-pointer flex justify-center bg-stone-50 rounded-lg border hover:border-blue-600 dark:border-neutral-800">
-      {menClothingList?.map((item: any) => (
+      {menClothingList?.map((item: Product) => (
         <div
           key={item.id}
           className="flex w-full justify-center relative"
@@ -63,7 +63,7 @@ export default function Home() {
   const EJeweleryList = () => (
     <div className="lg:w-2/5 w-full flex flex-col gap-y-4">
       <div className="cursor-pointer py-4 flex justify-center bg-stone-50 rounded-lg border hover:border-blue-600 dark:border-neutral-800">
-        {electronicList?.map((item: any) => (
+        {electronicList?.map((item: Product) => (
           <div
             key={item.id}
             className="flex w-full justify-center relative"
@@ -87,7 +87,7 @@ export default function Home() {
         ))}
       </div>
       <div className="cursor-pointer py-4 flex justify-center bg-stone-50 rounded-lg border hover:border-blue-600 dark:border-neutral-800">
-        {jeweleryList?.map((item: any) => (
+        {jeweleryList?.map((item: Product) => (
           <div
             key={item.id}
             className="flex w-full justify-center relative"
