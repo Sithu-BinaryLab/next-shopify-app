@@ -1,14 +1,14 @@
+import Image from "next/image";
+import { useState } from "react";
 import {
   Dialog,
   DialogPanel,
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { useState } from "react";
-import Image from "next/image";
-import useFetchLoginAccount from "@/app/api/hooks/account/useFetchLoginAccount";
-import { userToken } from "@/jotai/state";
 import { useAtom } from "jotai";
+import { userToken } from "@/jotai/state";
+import useFetchLoginAccount from "@/app/api/hooks/account/useFetchLoginAccount";
 
 interface LogInProps {
   openLogIn: boolean;
@@ -16,21 +16,21 @@ interface LogInProps {
 }
 
 export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
-  const [toggleSeen, setToggleSeen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [toggleSeen, setToggleSeen] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [, setUserToken] = useAtom(userToken);
 
   const handleToggleSeen = () => {
     setToggleSeen(!toggleSeen);
   };
 
-  const isButtonDisabled = email.trim() === "" || password.trim() === "";
+  const isButtonDisabled = userName.trim() === "" || password.trim() === "";
 
   const { mutate, error, data, isSuccess } = useFetchLoginAccount();
 
   const handleLogin = () => {
-    mutate({ email, password });
+    mutate({ username: userName, password });
   };
   if (isSuccess) {
     setUserToken(data.token);
@@ -73,15 +73,15 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
 
                   <div>
                     <label className="block text-md font-normal text-[#8F8F8F]">
-                      Email
+                      Username
                     </label>
 
                     <input
-                      type="email"
+                      type="text"
                       placeholder="shopify@gmail.com"
                       className="mt-1 w-full outline-none rounded-md border-gray-200 shadow-sm text-base font-normal py-3 px-2.5 text-[#94A3B8]"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
                     />
                   </div>
                   <div className="my-7">
