@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import useFetchGetInCategories from "@/app/api/hooks/categories/useFetchGetInCategoires";
 import { Button } from "@/components/atoms/button";
+import { Product } from "@/app/type/product";
 
 interface RelatedProductsProps {
   category?: string;
@@ -44,7 +45,7 @@ const RelatedProducts = ({ category }: RelatedProductsProps) => {
       </h1>
       <div className="w-full overflow-x-scroll max-w-[500rem] flex gap-x-4 mt-4">
         {!isLoading &&
-          products?.map((item: any) => (
+          products?.map((item: Product) => (
             <div
               key={item.id}
               className="cursor-pointer lg:min-w-[400px] min-w-[300px] relative"
