@@ -3,7 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "../../providers/ReactQueryProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
