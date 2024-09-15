@@ -7,6 +7,7 @@ import { useFetchElectronicList } from "@/app/api/hooks/categories/useFetchElect
 import { useFetchMenClothingList } from "@/app/api/hooks/categories/useFetchMenClothingList";
 import { Button } from "@/components/atoms/button";
 import Header from "@/components/organisms/header";
+import { Product } from "@/app/type/product";
 
 export default function Home() {
   const { data: allProduct, isLoading: allProductLoading } =
@@ -113,7 +114,7 @@ export default function Home() {
 
   const AllProductList = () => (
     <div className="w-full overflow-x-scroll max-w-[500rem] flex gap-x-4 mt-4">
-      {allProduct?.map((item: any) => (
+      {allProduct?.map((item: Product) => (
         <div
           key={item.id}
           className="cursor-pointer lg:min-w-[400px] min-w-[300px] relative"
