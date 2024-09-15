@@ -6,6 +6,7 @@ import Categories from "@/components/organisms/categories";
 import Header from "@/components/organisms/header";
 import SortBy from "@/components/organisms/sortby";
 import { Button } from "@/components/atoms/button";
+import { Product } from "@/app/type/product";
 
 const AllCategories = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const AllCategories = () => {
         </div>
         <div className="grow order-3 md:order-2 px-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-            {allProduct?.map((item: any, index: any) => (
+            {allProduct?.map((item: Product, index: number) => (
               <div
                 key={index}
                 className="cursor-pointer relative p-4 bg-stone-50 border rounded-lg"
