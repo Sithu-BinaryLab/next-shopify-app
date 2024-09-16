@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import useFetchGetInCategories from "@/app/api/hooks/categories/useFetchGetInCategoires";
 import Header from "@/components/organisms/header";
 import Categories from "@/components/organisms/categories";
@@ -14,8 +15,9 @@ const CategoriesById = () => {
   const params = useParams();
   const item = params.id;
   const router = useRouter();
+  const [sortType, setSortType] = useState<string>("");
 
-  const { data, error, isLoading } = useFetchGetInCategories(item);
+  const { data, error, isLoading } = useFetchGetInCategories(item, sortType);
 
   const handleClick = (id: number) => {
     if (id) {
@@ -62,7 +64,7 @@ const CategoriesById = () => {
           )}
         </div>
         <div className="flex-none order-2 md:order-3 w-[80vw] md:w-40 h-auto md:pl-2">
-          <SortBy />
+          <SortBy sortType={sortType} setSortType={setSortType} />
         </div>
       </div>
     </main>
