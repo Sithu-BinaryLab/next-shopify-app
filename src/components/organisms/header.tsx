@@ -30,6 +30,12 @@ function Header() {
     } else setOpenLogIn(true);
   };
 
+  const handleCart = () => {
+    if (userData.token && userData.token.length !== 0) {
+      router.push("/cart");
+    } else setOpenLogIn(true);
+  };
+
   const closeLogInDialog = () => {
     setOpenLogIn(false);
   };
@@ -134,7 +140,7 @@ function Header() {
             variant="default"
             className="ml-3 mr-1 font-bold h-9 px-0 w-[70px]"
             size="icon"
-            onClick={() => router.push("/cart")}
+            onClick={handleCart}
           >
             {cart.length}
             <Image

@@ -1,8 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
-import { user } from "@/jotai/state";
+import { user, cartAtom } from "@/jotai/state";
 import { Edit } from "lucide-react";
+import Cookies from "js-cookie";
 import useFetchAccount from "@/app/api/hooks/account/useFetchAccount";
 import { Avatar, AvatarImage } from "@/components/atoms/avatar";
 import Header from "@/components/organisms/header";
@@ -10,6 +11,7 @@ import Header from "@/components/organisms/header";
 const Account = () => {
   const router = useRouter();
   const [_user, SetUser] = useAtom(user);
+  const [_, setCart] = useAtom(cartAtom);
   const {
     data: account,
     error,
@@ -19,7 +21,9 @@ const Account = () => {
   const handleLogout = () => {
     if (_user.id || _user.token) {
       SetUser({ id: null, token: null });
+      setCart([]);
     }
+    Cookies.remove("auth_token");
     return router.push("/");
   };
 
