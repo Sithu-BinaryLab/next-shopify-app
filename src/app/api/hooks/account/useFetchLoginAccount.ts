@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useAtom } from "jotai";
 import { user } from "@/jotai/state";
 import { fetchLoginAccount } from "@/app/api/mutations/account/fetchLoginAccount";
@@ -11,6 +12,11 @@ const useFetchLoginAccount = () => {
     onSuccess: (data) => {
       //id is free api limitation
       setUser({ id: 1, token: data.token });
+      Cookies.set("auth_token", data.token, {
+        expires: 7,
+        secure: true,
+        sameSite: "strict",
+      });
     },
   });
 };
