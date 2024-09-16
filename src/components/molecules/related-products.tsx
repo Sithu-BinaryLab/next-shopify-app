@@ -28,7 +28,7 @@ const RelatedProducts = ({ category }: RelatedProductsProps) => {
     data: products,
     isLoading,
     error,
-  } = useFetchGetInCategories(currentCategoryLink);
+  } = useFetchGetInCategories(currentCategoryLink, "");
 
   const router = useRouter();
   const handleClick = (id: number) => {
