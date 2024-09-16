@@ -1,6 +1,7 @@
 "use client";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/jotai/state";
+import { useToast } from "@/app/api/hooks/common/use-toast";
 import Header from "@/components/organisms/header";
 import { Button } from "@/components/atoms/button";
 import CartItem from "@/components/molecules/cartItem";
@@ -10,7 +11,12 @@ const Account = () => {
   let totalPrice = 0;
   cart.map((item) => (totalPrice += item.price));
 
+  const { toast } = useToast();
   const checkoutClick = () => {
+    toast({
+      title: "Checkout Successfully!",
+      description: new Date().toLocaleString(),
+    });
     addItemToCart([]);
   };
 
