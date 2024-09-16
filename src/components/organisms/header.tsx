@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/jotai/state";
-import { userToken } from "@/jotai/state";
+import { user } from "@/jotai/state";
 import { Button } from "@/components/atoms/button";
 import { Avatar, AvatarImage } from "@/components/atoms/avatar";
 import Search from "@/components/molecules/search";
@@ -15,7 +15,7 @@ function Header() {
   const [pathname, setPathname] = useState<string>("");
   const [openLogIn, setOpenLogIn] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  const [user, _] = useAtom(userToken);
+  const [userData, _] = useAtom(user);
   const [cart, _add] = useAtom(cartAtom);
 
   const router = useRouter();
@@ -25,7 +25,7 @@ function Header() {
   }, []);
 
   const openLogInDialog = () => {
-    if (user) {
+    if (userData.token && userData.token.length !== 0) {
       router.push("/account");
     } else setOpenLogIn(true);
   };
@@ -119,7 +119,7 @@ function Header() {
             className="mx-1 lg:block hidden"
             onClick={openLogInDialog}
           >
-            {user ? (
+            {userData.token && userData.token?.length !== 0 ? (
               <Avatar className="w-10 h-10 -mt-2">
                 <AvatarImage src={"/assets/avatar.jpg"} />
               </Avatar>

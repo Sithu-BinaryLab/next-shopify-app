@@ -6,8 +6,6 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { useAtom } from "jotai";
-import { userToken } from "@/jotai/state";
 import useFetchLoginAccount from "@/app/api/hooks/account/useFetchLoginAccount";
 
 interface LogInProps {
@@ -19,7 +17,6 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
   const [toggleSeen, setToggleSeen] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [, setUserToken] = useAtom(userToken);
 
   const handleToggleSeen = () => {
     setToggleSeen(!toggleSeen);
@@ -27,14 +24,17 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
 
   const isButtonDisabled = userName.trim() === "" || password.trim() === "";
 
-  const { mutate, error, data, isSuccess } = useFetchLoginAccount();
+  const {
+    mutate: accountData,
+    error,
+    data,
+    isSuccess,
+  } = useFetchLoginAccount();
 
-  const handleLogin = () => {
-    mutate({ username: userName, password });
+  const handleLogin = async () => {
+    accountData({ username: userName, password });
+    closeLogInDialog();
   };
-  if (isSuccess) {
-    setUserToken(data.token);
-  }
 
   return (
     <>
@@ -78,7 +78,7 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
 
                     <input
                       type="text"
-                      placeholder="shopify@gmail.com"
+                      placeholder="username"
                       className="mt-1 w-full outline-none rounded-md border-gray-200 shadow-sm text-base font-normal py-3 px-2.5 text-[#94A3B8]"
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
