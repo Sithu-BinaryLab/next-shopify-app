@@ -7,6 +7,7 @@ import { useFetchElectronicList } from "@/app/api/hooks/categories/useFetchElect
 import { useFetchMenClothingList } from "@/app/api/hooks/categories/useFetchMenClothingList";
 import { Button } from "@/components/atoms/button";
 import Header from "@/components/organisms/header";
+import Footer from "@/components/organisms/footer";
 import { Product } from "@/app/type/product";
 
 export default function Home() {
@@ -113,7 +114,7 @@ export default function Home() {
   );
 
   const AllProductList = () => (
-    <div className="w-full overflow-x-scroll max-w-[500rem] flex gap-x-4 mt-4">
+    <div className="w-full overflow-x-scroll max-w-[500rem] flex gap-x-4 mt-4 hide-scrollbar">
       {allProduct?.map((item: Product) => (
         <div
           key={item.id}
@@ -148,13 +149,20 @@ export default function Home() {
           <div className="loader"></div>
         </div>
       )}
-      <div className="mt-20 overflow-hidden gap-y-4 bg-neutral-900 flex flex-col items-center container mx-auto px-4">
+      <div className="mt-20 overflow-hidden gap-y-4 flex flex-col items-center container mx-auto px-4">
         <div className="flex w-full flex-col gap-y-4 lg:flex-row gap-x-4 px-8">
           {menClothingList && <MenClothing />}
           {jeweleryList && <EJeweleryList />}
         </div>
       </div>
-      {allProduct && <AllProductList />}
+      {allProduct && (
+        <div>
+          <AllProductList />
+          <div className="py-10 container mx-auto px-10">
+            <Footer />
+          </div>
+        </div>
+      )}
     </main>
   );
 }

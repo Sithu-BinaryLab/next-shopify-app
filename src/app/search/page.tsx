@@ -9,6 +9,7 @@ import Categories from "@/components/organisms/categories";
 import Header from "@/components/organisms/header";
 import SortBy from "@/components/organisms/sortby";
 import { Button } from "@/components/atoms/button";
+import Footer from "@/components/organisms/footer";
 import { Product } from "@/app/type/product";
 
 const AllCategories = () => {

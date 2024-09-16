@@ -85,7 +85,7 @@ function Header() {
           <div className="flex flex-row lg:block hidden">
             <Link
               className={`${
-                pathname.includes("search")
+                pathname === "/search"
                   ? "font-bold text-surface-foreground"
                   : "text-primary-foreground hover:text-surface-foreground"
               } pr-6 mr-3`}
@@ -95,7 +95,7 @@ function Header() {
             </Link>
             <Link
               className={`${
-                pathname.includes("electronics")
+                pathname === "/electronics"
                   ? "font-bold text-surface-foreground"
                   : "text-primary-foreground hover:text-surface-foreground"
               } pr-6 mr-3`}
@@ -105,7 +105,7 @@ function Header() {
             </Link>
             <Link
               className={`${
-                pathname.includes("jewelery")
+                pathname === "/jewelery"
                   ? "font-bold text-surface-foreground"
                   : "text-primary-foreground hover:text-surface-foreground"
               } pr-6 mr-3`}

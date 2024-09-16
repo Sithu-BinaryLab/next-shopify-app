@@ -43,7 +43,7 @@ const RelatedProducts = ({ category }: RelatedProductsProps) => {
       <h1 className="text-2xl text-surface-foreground font-bold mb-2 ">
         Related Products
       </h1>
-      <div className="w-full overflow-x-scroll max-w-[500rem] flex gap-x-4 mt-4">
+      <div className="w-full overflow-x-scroll max-w-[500rem] flex gap-x-4 mt-4 hide-scrollbar">
         {!isLoading &&
           products?.map((item: Product) => (
             <div
