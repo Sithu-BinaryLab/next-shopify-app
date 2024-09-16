@@ -16,7 +16,7 @@ function Header() {
   const [openLogIn, setOpenLogIn] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [user, _] = useAtom(userToken);
-  const [cart, addItemToCart] = useAtom(cartAtom);
+  const [cart, _add] = useAtom(cartAtom);
 
   const router = useRouter();
 
@@ -171,10 +171,21 @@ function Header() {
               <div className="block sm:hidden">
                 <Search />
               </div>
+              <Link
+                className={`${
+                  pathname === "/"
+                    ? "font-normal text-[#E6FB64] text-lg"
+                    : "hover:text-surface-foreground text-[#F3F3F3] text-lg font-normal"
+                } py-2 mt-3 cursor-pointer`}
+                href={"/"}
+                onClick={toggleDrawer}
+              >
+                Home
+              </Link>
 
               <Link
                 className={`${
-                  pathname.includes("search")
+                  pathname === "/search"
                     ? "font-normal text-[#E6FB64] text-lg"
                     : "hover:text-surface-foreground text-[#F3F3F3] text-lg font-normal"
                 } py-2 mt-3 cursor-pointer`}
@@ -185,7 +196,7 @@ function Header() {
               </Link>
               <Link
                 className={`${
-                  pathname.includes("electronics")
+                  pathname === "/search/electronics"
                     ? "font-normal text-[#E6FB64] text-lg"
                     : "hover:text-surface-foreground text-[#F3F3F3] text-lg font-normal"
                 } py-2 cursor-pointer`}
@@ -196,7 +207,7 @@ function Header() {
               </Link>
               <Link
                 className={`${
-                  pathname.includes("search/jewelery")
+                  pathname === "/search/jewelery"
                     ? "font-normal text-[#E6FB64] text-lg"
                     : "hover:text-surface-foreground text-[#F3F3F3] text-lg font-normal"
                 } py-2 cursor-pointer`}
