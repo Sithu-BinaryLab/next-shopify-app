@@ -11,7 +11,7 @@ import { Product } from "@/app/type/product";
 
 export default function Home() {
   const { data: allProduct, isLoading: allProductLoading } =
-    useFetchAllProduct();
+    useFetchAllProduct("");
   const { data: jeweleryList, isLoading: jeweleryListLoading } =
     useFetchJeweleryList();
   const { data: electronicList, isLoading: electronicListLoading } =
