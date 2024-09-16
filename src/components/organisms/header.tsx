@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/jotai/state";
 import { user } from "@/jotai/state";
@@ -109,7 +109,10 @@ function Header() {
             </Link>
           </div>
           <div className="hidden sm:block">
-            <Search />
+            {" "}
+            <Suspense>
+              <Search />
+            </Suspense>{" "}
           </div>
         </div>
 
@@ -169,7 +172,9 @@ function Header() {
 
             <div className="flex flex-col mt-7 relative h-screen">
               <div className="block sm:hidden">
-                <Search />
+                <Suspense>
+                  <Search />
+                </Suspense>{" "}
               </div>
               <Link
                 className={`${

@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { user } from "@/jotai/state";
 import { Edit } from "lucide-react";
@@ -6,7 +7,6 @@ import useFetchAccount from "@/app/api/hooks/account/useFetchAccount";
 import { Avatar, AvatarImage } from "@/components/atoms/avatar";
 import Header from "@/components/organisms/header";
 
-import { useRouter } from "next/navigation";
 const Account = () => {
   const router = useRouter();
   const [_user, SetUser] = useAtom(user);
