@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { useAtom } from "jotai";
+import { sortValue } from "@/jotai/state";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import {
   DropdownMenu,
@@ -7,20 +8,36 @@ import {
   DropdownMenuTrigger,
 } from "@/components/atoms/dropdow-menu";
 
-function SortBy() {
-  const sortData = ["Price: Low to high", "Price: High to low"];
+interface SortByProps {
+  sortType: string;
+  setSortType: (type: string) => void;
+}
+
+function SortBy({ sortType, setSortType }: SortByProps) {
+  const [_s, setSortValue] = useAtom(sortValue);
+  const sortData = [
+    { value: "asc", label: "Price: Low to High" },
+    { value: "desc", label: "Price: High to Low" },
+  ];
+  const handleSortChange = (type: string) => {
+    setSortType(type);
+    setSortValue(type);
+  };
+
   return (
     <div className="mb-5">
       <div className="hidden md:block">
         <p className="text-md pb-1">Sort by</p>
-        {sortData?.map((data: any, index: any) => (
-          <div key={index} className="py-1">
-            <Link
-              href={""}
-              className="text-md hover:underline hover:text-white underline-offset-4"
+        {sortData.map((option) => (
+          <div key={option.value} className="py-1">
+            <a
+              onClick={() => handleSortChange(option.value)}
+              className={`text-md cursor-pointer hover:underline  ${
+                sortType === option.value ? "underline" : ""
+              }`}
             >
-              {data}
-            </Link>
+              {option.label}
+            </a>
           </div>
         ))}
       </div>
@@ -34,17 +51,16 @@ function SortBy() {
             <ChevronDownIcon width={20} height={20} />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="min-w-[80vw] bg-black ">
-            {sortData?.map((data: any, index: any) => (
-              <div key={index} className="py-1">
-                <Link
-                  href={""}
-                  className="hover:underline hover:text-white underline-offset-4"
-                >
-                  <DropdownMenuItem className="capitalize text-md cursor-pointer">
-                    {data}
-                  </DropdownMenuItem>
-                </Link>
-              </div>
+            {sortData.map((item) => (
+              <DropdownMenuItem
+                key={item.value}
+                className={`py-1 capitalize text-md cursor-pointer ${
+                  sortType === item.value ? "bg-gray-700 text-white" : ""
+                }`}
+                onClick={() => handleSortChange(item.value)}
+              >
+                {item.label}
+              </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
