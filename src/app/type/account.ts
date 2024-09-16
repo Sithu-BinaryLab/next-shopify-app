@@ -4,6 +4,34 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+  id: number | null;
+  token: string | null;
+}
+
+interface Geolocation {
+  lat: string;
+  long: string;
+}
+
+interface Address {
+  city: string;
+  street: string;
+  number: number;
+  zipcode: string;
+  geolocation: Geolocation;
+}
+
+interface Name {
+  firstname: string;
+  lastname: string;
+}
+
+export interface AccountResponse {
   id: number;
-  token: string;
+  email: string;
+  username: string;
+  password: string;
+  name: Name;
+  address: Address;
+  phone: string;
 }
