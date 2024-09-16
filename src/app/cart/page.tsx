@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/jotai/state";
 import { useToast } from "@/app/api/hooks/common/use-toast";
@@ -7,6 +8,7 @@ import { Button } from "@/components/atoms/button";
 import CartItem from "@/components/molecules/cartItem";
 
 const Account = () => {
+  const router = useRouter();
   const [cart, addItemToCart] = useAtom(cartAtom);
   let totalPrice = 0;
   cart.map((item) => (totalPrice += item.price));
@@ -73,7 +75,10 @@ const Account = () => {
                   >
                     Check out
                   </Button>
-                  <p className="text-xs text-surface text-center mt-2">
+                  <p
+                    className="text-xs text-surface text-center mt-2"
+                    onClick={() => router.push("/terms-conditions")}
+                  >
                     By clicking the button you accept the product(s) License
                     Agreement(s)
                     <br />
