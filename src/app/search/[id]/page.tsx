@@ -63,7 +63,7 @@ const CategoriesById = () => {
             </div>
           )}
         </div>
-        <div className="flex-none order-2 md:order-3 w-[80vw] md:w-40 h-auto md:pl-2">
+        <div className="flex-none order-2 md:order-3 w-[80vw] md:w-40 h-auto pl-5 md:pl-2">
           <SortBy sortType={sortType} setSortType={setSortType} />
         </div>
       </div>
