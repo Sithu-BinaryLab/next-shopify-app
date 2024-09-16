@@ -3,11 +3,12 @@ import { fetchGetInCategoires } from "@/app/api/mutations/categories/fetGetInCat
 import { ProductResponse } from "@/app/type/product";
 
 const useFetchGetInCategories = (
-  item: string | string[]
+  item: string | string[],
+  sortType: string
 ): UseQueryResult<ProductResponse, Error> => {
   return useQuery<ProductResponse>({
-    queryKey: ["products by categories", item],
-    queryFn: () => fetchGetInCategoires(item),
+    queryKey: ["products by categories", item, sortType],
+    queryFn: () => fetchGetInCategoires(item, sortType),
     enabled: !!item,
     retry: 1,
   });

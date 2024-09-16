@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
-import React, { useState, ChangeEvent, KeyboardEvent } from "react";
+import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom } from "jotai";
 import { Input } from "@/components/atoms/input";
 import { searchInputAtom } from "@/jotai/state";
@@ -8,16 +9,37 @@ import { searchInputAtom } from "@/jotai/state";
 function Search() {
   const [_s, setSearchInput] = useAtom(searchInputAtom);
   const [tempInput, setTempInput] = useState<string>("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTempInput(event.target.value);
   };
 
+  const handleSearch = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (tempInput) {
+      params.set("q", tempInput);
+    } else {
+      params.delete("q");
+    }
+    router.push(`/search?${params.toString()}`);
+  };
+
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       setSearchInput(tempInput);
+      handleSearch();
     }
   };
+
+  useEffect(() => {
+    const initialSearch = searchParams.get("q");
+    if (initialSearch) {
+      setTempInput(initialSearch);
+      setSearchInput(initialSearch);
+    }
+  }, [searchParams, setSearchInput]);
 
   return (
     <div className="relative">
