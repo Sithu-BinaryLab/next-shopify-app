@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogPanel,
@@ -14,9 +15,11 @@ interface LogInProps {
 }
 
 export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
+  const translationText = useTranslations();
   const [toggleSeen, setToggleSeen] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleToggleSeen = () => {
     setToggleSeen(!toggleSeen);
@@ -26,15 +29,31 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
 
   const {
     mutate: accountData,
-    error,
-    data,
+    isError,
+    isPending,
     isSuccess,
   } = useFetchLoginAccount();
 
   const handleLogin = async () => {
-    accountData({ username: userName, password });
-    closeLogInDialog();
+    accountData(
+      { username: userName, password },
+      {
+        onSuccess: () => {
+          setErrorMessage("");
+          closeLogInDialog();
+        },
+        onError: (error) => {
+          setErrorMessage("Incorrect username and password");
+        },
+      }
+    );
   };
+
+  useEffect(() => {
+    setUserName("");
+    setPassword("");
+    setErrorMessage("");
+  }, [openLogIn]);
 
   return (
     <>
@@ -57,7 +76,9 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
               >
                 <DialogPanel className="w-full max-w-md rounded-xl bg-[#232323] p-6 backdrop-blur-2xl">
                   <div className="flex justify-between mt-2">
-                    <h5 className="text-white text-2xl font-bold">Login</h5>
+                    <h5 className="text-white text-2xl font-bold">
+                      {translationText("Login")}
+                    </h5>
                     <button onClick={closeLogInDialog}>
                       <Image
                         src={"/assets/auths/cross.svg"}
@@ -68,18 +89,24 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
                     </button>
                   </div>
                   <p className="text-white pt-6 pb-8">
-                    Fill in your password for confirm account
+                    {translationText(
+                      "Fill in your password for confirm account"
+                    )}
                   </p>
-
+                  {errorMessage && (
+                    <p className="text-red-400 font-semibold text-sm pb-2">
+                      {translationText(errorMessage)}
+                    </p>
+                  )}
                   <div>
                     <label className="block text-md font-normal text-[#8F8F8F]">
-                      Username
+                      {translationText("Username")}
                     </label>
 
                     <input
                       type="text"
-                      placeholder="username"
-                      className="mt-1 w-full outline-none rounded-md border-gray-200 shadow-sm text-base font-normal py-3 px-2.5 text-[#94A3B8]"
+                      placeholder={translationText("username")}
+                      className="mt-1 w-full outline-none rounded-md border-gray-200 shadow-sm text-base font-normal py-3 px-2.5 text-black"
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
                     />
@@ -91,15 +118,17 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
                     <div className="flex justify-between space-x-10">
                       <input
                         type={toggleSeen ? "text" : "password"}
-                        className="mt-1 w-full outline-none rounded-md border-gray-200 shadow-sm text-base font-normal py-3 px-2.5 text-[#94A3B8]"
+                        className="mt-1 w-full outline-none rounded-md border-gray-200 shadow-sm text-base font-normal py-3 px-2.5 text-black"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <button
-                        className="my-auto text-[#F3F3F3] text-base font-bold w-14"
+                        className="my-auto text-[#F3F3F3] text-base font-bold w-20"
                         onClick={handleToggleSeen}
                       >
-                        {toggleSeen ? "Hide" : "Show"}
+                        {toggleSeen
+                          ? translationText("Hide")
+                          : translationText("Show")}
                       </button>
                     </div>
                   </div>
@@ -112,7 +141,7 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
                     } w-full py-3  mb-3 rounded-lg text-center text-[#13150D] text-base font-bold`}
                     disabled={isButtonDisabled}
                   >
-                    Continue
+                    {isPending ? "..." : translationText("Continue")}
                   </button>
                 </DialogPanel>
               </TransitionChild>

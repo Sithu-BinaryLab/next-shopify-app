@@ -239,10 +239,16 @@ function Header() {
               </Link>
               <Button
                 variant="ghost"
-                className="absolute bottom-60"
+                className="justify-start flex mt-4 px-0"
                 onClick={openLogInDialog}
               >
-                {translationText("Login")}
+                {userData.token && userData.token?.length !== 0 ? (
+                  <Avatar className="w-10 h-10 -mt-2">
+                    <AvatarImage src={"/assets/avatar.jpg"} />
+                  </Avatar>
+                ) : (
+                  translationText("Login")
+                )}
               </Button>
             </div>
           </div>

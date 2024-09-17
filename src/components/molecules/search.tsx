@@ -46,7 +46,7 @@ function Search() {
   return (
     <div className="relative">
       <Input
-        className={`border border-grey-foreground text-white focus:placeholder-white bg-grey rounded-[8px] mr-1 h-[34px] text-md w-[350px] pl-8 transition-all duration-500`}
+        className={`border border-grey-foreground text-white focus:placeholder-white bg-grey rounded-[8px] mr-1 h-[34px] text-md md:w-[350px] w-[200] pl-8 transition-all duration-500`}
         onChange={handleSearchChange}
         onKeyDown={handleKeyDown}
         placeholder={translationText("Search for products")}
