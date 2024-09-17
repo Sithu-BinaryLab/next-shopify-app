@@ -1,8 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/jotai/state";
 import { useTranslations } from "next-intl";
+import { getLangUrl } from "@/lib/utils";
 import { useToast } from "@/app/api/hooks/common/use-toast";
 import Header from "@/components/organisms/header";
 import { Button } from "@/components/atoms/button";
@@ -11,9 +13,14 @@ import CartItem from "@/components/molecules/cartItem";
 const Account = () => {
   const router = useRouter();
   const translationText = useTranslations();
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
   const [cart, addItemToCart] = useAtom(cartAtom);
   let totalPrice = 0;
   cart.map((item) => (totalPrice += item.price));
+
+  useEffect(() => {
+    setCurrentUrl(window.location);
+  }, []);
 
   const { toast } = useToast();
   const checkoutClick = () => {
@@ -85,7 +92,10 @@ const Account = () => {
                     </Button>
                     <p
                       className="text-xs text-surface text-center mt-2 cursor-pointer"
-                      onClick={() => router.push("/terms-conditions")}
+                      onClick={() =>
+                        currentUrl &&
+                        router.push(getLangUrl(currentUrl, `/terms-conditions`))
+                      }
                     >
                       {translationText(
                         "By clicking the button you accept the products License Agreements"

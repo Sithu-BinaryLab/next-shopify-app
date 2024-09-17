@@ -1,10 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { user, cartAtom } from "@/jotai/state";
 import { Edit } from "lucide-react";
 import Cookies from "js-cookie";
 import { useTranslations } from "next-intl";
+import { getLangUrl } from "@/lib/utils";
 import useFetchAccount from "@/app/api/hooks/account/useFetchAccount";
 import { Avatar, AvatarImage } from "@/components/atoms/avatar";
 import Header from "@/components/organisms/header";
@@ -12,6 +14,7 @@ import Header from "@/components/organisms/header";
 const Account = () => {
   const router = useRouter();
   const translationText = useTranslations();
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
   const [_user, SetUser] = useAtom(user);
   const [_, setCart] = useAtom(cartAtom);
   const {
@@ -20,13 +23,17 @@ const Account = () => {
     isLoading,
   } = useFetchAccount(_user.id ? _user.id : 0);
 
+  useEffect(() => {
+    setCurrentUrl(window.location);
+  }, []);
+
   const handleLogout = () => {
     if (_user.id || _user.token) {
       SetUser({ id: null, token: null });
       setCart([]);
     }
     Cookies.remove("auth_token");
-    return router.push("/");
+    if (currentUrl) return router.push(getLangUrl(currentUrl, `/`));
   };
 
   const classStyle =

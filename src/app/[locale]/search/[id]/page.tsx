@@ -2,7 +2,8 @@
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getLangUrl } from "@/lib/utils";
 import useFetchGetInCategories from "@/app/api/hooks/categories/useFetchGetInCategoires";
 import Header from "@/components/organisms/header";
 import Categories from "@/components/organisms/categories";
@@ -15,13 +16,18 @@ const CategoriesById = () => {
   const params = useParams();
   const item = params.id;
   const router = useRouter();
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
   const [sortType, setSortType] = useState<string>("");
 
   const { data, error, isLoading } = useFetchGetInCategories(item, sortType);
 
+  useEffect(() => {
+    setCurrentUrl(window.location);
+  }, []);
+
   const handleClick = (id: number) => {
-    if (id) {
-      router.push(`/product/${id}`);
+    if (id && currentUrl) {
+      router.push(getLangUrl(currentUrl, `/product/${id}`));
     }
     return;
   };

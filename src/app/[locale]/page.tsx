@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { getLangUrl } from "@/lib/utils";
 import { useFetchAllProduct } from "@/app/api/hooks/product/useFetchAllProduct";
 import { useFetchJeweleryList } from "@/app/api/hooks/categories/useFetchJeweleryList";
 import { useFetchElectronicList } from "@/app/api/hooks/categories/useFetchElectronicList";
@@ -19,6 +21,7 @@ export default function Home() {
     useFetchElectronicList();
   const { data: menClothingList, isLoading: menClothingListLoading } =
     useFetchMenClothingList();
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
 
   const loading =
     allProductLoading ||
@@ -27,9 +30,13 @@ export default function Home() {
     menClothingListLoading;
 
   const router = useRouter();
+  useEffect(() => {
+    setCurrentUrl(window.location);
+  }, []);
+
   const handleClick = (id: number) => {
-    if (id) {
-      router.push(`/product/${id}`);
+    if (id && currentUrl) {
+      router.push(getLangUrl(currentUrl, `/product/${id}`));
     }
     return;
   };
