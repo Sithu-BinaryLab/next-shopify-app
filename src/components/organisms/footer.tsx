@@ -2,12 +2,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 function Footer() {
   const [pathname, setPathName] = useState("");
   useEffect(() => {
     setPathName(window.location.pathname ?? "");
   }, []);
+  const translationText = useTranslations();
 
   return (
     <main>
@@ -31,7 +33,7 @@ function Footer() {
             } mb-2`}
             href={"/"}
           >
-            Home
+            {translationText("Home")}
           </Link>
           <Link
             className={`${
@@ -41,7 +43,7 @@ function Footer() {
             }`}
             href={"/about"}
           >
-            About
+            {translationText("About")}
           </Link>
           <Link
             className={`${
@@ -51,7 +53,7 @@ function Footer() {
             } mt-2`}
             href={"/terms-conditions"}
           >
-            Terms & Conditions
+            {translationText("Terms & Conditions")}
           </Link>
         </div>
       </div>
@@ -59,7 +61,7 @@ function Footer() {
       <div className="flex md:justify-between md:flex-row flex-col mb-4">
         <div className="flex md:flex-row flex-col">
           <p className="hover:text-white">
-            © 2023-2024 Shopify, Inc. All rights reserved.
+            © 2023-2024 Shopify, Inc. {translationText("All rights reserved")}
           </p>
 
           <hr className=" hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block mx-10 my-auto" />
@@ -69,10 +71,18 @@ function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            View the source
+            {translationText("View the source")}
           </a>
         </div>
-        <p className="hover:text-white">Created by Dev</p>
+
+        <a
+          className="text-primary-foreground hover:text-surface-foreground md:my-auto my-2"
+          href="https://www.linkedin.com/in/sithulwin/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {translationText("Created by Dev")}
+        </a>
       </div>
     </main>
   );

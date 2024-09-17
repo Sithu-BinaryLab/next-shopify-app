@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { sortValue } from "@/jotai/state";
+import { useTranslations } from "next-intl";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import {
   DropdownMenu,
@@ -14,10 +15,12 @@ interface SortByProps {
 }
 
 function SortBy({ sortType, setSortType }: SortByProps) {
+  const translationText = useTranslations();
   const [_s, setSortValue] = useAtom(sortValue);
+
   const sortData = [
-    { value: "asc", label: "Price: Low to High" },
-    { value: "desc", label: "Price: High to Low" },
+    { value: "asc", label: translationText("Price: Low to High") },
+    { value: "desc", label: translationText("Price: High to Low") },
   ];
   const handleSortChange = (type: string) => {
     setSortType(type);
@@ -27,7 +30,7 @@ function SortBy({ sortType, setSortType }: SortByProps) {
   return (
     <div className="mb-5">
       <div className="hidden md:block">
-        <p className="text-md pb-1">Sort by</p>
+        <p className="text-md pb-1">{translationText("Sort by")}</p>
         {sortData.map((option) => (
           <div key={option.value} className="py-1">
             <a

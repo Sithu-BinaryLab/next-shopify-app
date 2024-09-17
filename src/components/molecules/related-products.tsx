@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import useFetchGetInCategories from "@/app/api/hooks/categories/useFetchGetInCategoires";
 import { Button } from "@/components/atoms/button";
 import { Product } from "@/app/type/product";
@@ -9,6 +10,7 @@ interface RelatedProductsProps {
   category?: string;
 }
 const RelatedProducts = ({ category }: RelatedProductsProps) => {
+  const translationText = useTranslations();
   let currentCategoryLink = "";
   switch (category) {
     case "men's clothing":
@@ -41,7 +43,7 @@ const RelatedProducts = ({ category }: RelatedProductsProps) => {
   return (
     <div className="my-10">
       <h1 className="text-2xl text-surface-foreground font-bold mb-2 ">
-        Related Products
+        {translationText("Related Products")}
       </h1>
       <div className="w-full overflow-x-scroll max-w-[500rem] flex gap-x-4 mt-4 hide-scrollbar">
         {!isLoading &&
