@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 import { useFetchCategories } from "@/app/api/hooks/categories/useFetchCategories";
@@ -13,6 +14,7 @@ import {
 function Categories() {
   const { data: categories } = useFetchCategories();
   const translationText = useTranslations();
+  const [pathname, setPathname] = useState<string>("");
 
   const routeLink = (id: number) => {
     switch (id) {
@@ -34,13 +36,20 @@ function Categories() {
     }
   };
 
+  useEffect(() => {
+    const cleanedPath = location.pathname.split("/").slice(2).join("/");
+    setPathname(cleanedPath);
+  }, []);
+
   return (
     <div className="mb-5">
       <p className="text-md">{translationText("Collections")}</p>
       <div className="pt-2 hidden md:block">
         <Link
           href={"/search"}
-          className="text-md  hover:underline hover:text-white underline-offset-4"
+          className={`${
+            pathname === "search" && "text-white underline"
+          } text-md  hover:underline hover:text-white underline-offset-4`}
         >
           {translationText("All")}
         </Link>
@@ -48,7 +57,9 @@ function Categories() {
           <div key={index} className="py-1">
             <Link
               href={routeLink(index)}
-              className="capitalize text-md hover:underline hover:text-white underline-offset-4"
+              className={`${
+                "/" + pathname === routeLink(index) && "text-white underline"
+              } capitalize text-md hover:underline hover:text-white underline-offset-4`}
             >
               {category}
             </Link>
