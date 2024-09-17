@@ -14,6 +14,6 @@ const setAuthHeader = (config: InternalAxiosRequestConfig) => {
   return config;
 };
 
-axiosInstance.interceptors.request.use();
+axiosInstance.interceptors.request.use(setAuthHeader);
 
 export { axiosInstance };
