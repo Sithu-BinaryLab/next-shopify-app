@@ -3,13 +3,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { getLangUrl } from "@/lib/utils";
 
 function Footer() {
+  const translationText = useTranslations();
   const [pathname, setPathName] = useState("");
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
   useEffect(() => {
+    setCurrentUrl(window.location);
     setPathName(window.location.pathname ?? "");
   }, []);
-  const translationText = useTranslations();
+
+  const langUrl = (url: string) => {
+    if (currentUrl) {
+      return getLangUrl(currentUrl, url);
+    }
+    return url;
+  };
 
   return (
     <main>
@@ -31,7 +41,7 @@ function Footer() {
                 ? "font-bold text-surface-foreground"
                 : "text-primary-foreground hover:text-surface-foreground"
             } mb-2`}
-            href={"/"}
+            href={langUrl("/")}
           >
             {translationText("Home")}
           </Link>
@@ -41,7 +51,7 @@ function Footer() {
                 ? "font-bold text-surface-foreground"
                 : "text-primary-foreground hover:text-surface-foreground"
             }`}
-            href={"/about"}
+            href={langUrl("/about")}
           >
             {translationText("About")}
           </Link>
@@ -51,7 +61,7 @@ function Footer() {
                 ? "font-bold text-surface-foreground"
                 : "text-primary-foreground hover:text-surface-foreground"
             } mt-2`}
-            href={"/terms-conditions"}
+            href={langUrl("/terms-conditions")}
           >
             {translationText("Terms & Conditions")}
           </Link>

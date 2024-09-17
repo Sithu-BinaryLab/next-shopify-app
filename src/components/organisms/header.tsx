@@ -7,6 +7,7 @@ import { useAtom } from "jotai";
 import { cartAtom } from "@/jotai/state";
 import { user } from "@/jotai/state";
 import { useTranslations } from "next-intl";
+import { getLangUrl } from "@/lib/utils";
 import { Button } from "@/components/atoms/button";
 import { Avatar, AvatarImage } from "@/components/atoms/avatar";
 import Search from "@/components/molecules/search";
@@ -16,6 +17,7 @@ import LogIn from "@/components/organisms/login";
 function Header() {
   const [pathname, setPathname] = useState<string>("");
   const [openLogIn, setOpenLogIn] = useState<boolean>(false);
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [userData, _] = useAtom(user);
@@ -25,18 +27,27 @@ function Header() {
   const router = useRouter();
 
   useEffect(() => {
+    setCurrentUrl(window.location);
     setPathname(window.location.pathname ?? "");
   }, []);
 
+  const langUrl = (url: string) => {
+    if (currentUrl) {
+      return getLangUrl(currentUrl, url);
+    }
+
+    return url;
+  };
+
   const openLogInDialog = () => {
-    if (userData.token && userData.token.length !== 0) {
-      router.push("/account");
+    if (userData.token && userData.token.length !== 0 && currentUrl) {
+      router.push(getLangUrl(currentUrl, `/account`));
     } else setOpenLogIn(true);
   };
 
   const handleCart = () => {
-    if (userData.token && userData.token.length !== 0) {
-      router.push("/cart");
+    if (userData.token && userData.token.length !== 0 && currentUrl) {
+      router.push(getLangUrl(currentUrl, `/cart`));
     } else setOpenLogIn(true);
   };
 
@@ -71,7 +82,7 @@ function Header() {
             </button>
             <Link
               className="text-surface-foreground font-bold pr-6 lg:pr-0"
-              href={"/"}
+              href={langUrl("/")}
             >
               <div className="flex mr-2 md:mr-10 space-x-4">
                 <Image
@@ -93,7 +104,7 @@ function Header() {
                   ? "font-bold text-surface-foreground"
                   : "text-primary-foreground hover:text-surface-foreground"
               } pr-6 mr-3`}
-              href={"/search"}
+              href={langUrl("/search")}
             >
               {translationText("All")}
             </Link>
@@ -103,7 +114,7 @@ function Header() {
                   ? "font-bold text-surface-foreground"
                   : "text-primary-foreground hover:text-surface-foreground"
               } pr-6 mr-3`}
-              href={"/search/electronics"}
+              href={langUrl("/search/electronics")}
             >
               Electronics
             </Link>
@@ -113,7 +124,7 @@ function Header() {
                   ? "font-bold text-surface-foreground"
                   : "text-primary-foreground hover:text-surface-foreground"
               } pr-6 mr-3`}
-              href={"/search/jewelery"}
+              href={langUrl("/search/jewelery")}
             >
               Jewelery
             </Link>
@@ -198,7 +209,7 @@ function Header() {
                     ? "font-normal text-[#E6FB64] text-lg"
                     : "hover:text-surface-foreground text-[#F3F3F3] text-lg font-normal"
                 } py-2 mt-3 cursor-pointer`}
-                href={"/"}
+                href={langUrl("/")}
                 onClick={toggleDrawer}
               >
                 {translationText("Home")}
@@ -210,7 +221,7 @@ function Header() {
                     ? "font-normal text-[#E6FB64] text-lg"
                     : "hover:text-surface-foreground text-[#F3F3F3] text-lg font-normal"
                 } py-2 cursor-pointer`}
-                href={"/search"}
+                href={langUrl("/search")}
                 onClick={toggleDrawer}
               >
                 {translationText("All")}
@@ -221,7 +232,7 @@ function Header() {
                     ? "font-normal text-[#E6FB64] text-lg"
                     : "hover:text-surface-foreground text-[#F3F3F3] text-lg font-normal"
                 } py-2 cursor-pointer`}
-                href={"/search/electronics"}
+                href={langUrl("/search/electronics")}
                 onClick={toggleDrawer}
               >
                 {translationText("Electronics")}
@@ -232,7 +243,7 @@ function Header() {
                     ? "font-normal text-[#E6FB64] text-lg"
                     : "hover:text-surface-foreground text-[#F3F3F3] text-lg font-normal"
                 } py-2 cursor-pointer`}
-                href={"/search/jewelery"}
+                href={langUrl("/search/jewelery")}
                 onClick={toggleDrawer}
               >
                 {translationText("Jewelery")}

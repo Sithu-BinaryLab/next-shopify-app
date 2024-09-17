@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
+import { getLangUrl } from "@/lib/utils";
 import { useFetchCategories } from "@/app/api/hooks/categories/useFetchCategories";
 import {
   DropdownMenu,
@@ -14,22 +16,34 @@ function Categories() {
   const { data: categories } = useFetchCategories();
   const translationText = useTranslations();
 
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
+  useEffect(() => {
+    setCurrentUrl(window.location);
+  }, []);
+
+  const langUrl = (url: string) => {
+    if (currentUrl) {
+      return getLangUrl(currentUrl, url);
+    }
+    return url;
+  };
+
   const routeLink = (id: number) => {
     switch (id) {
       case 0:
-        return "/search/electronics";
+        return langUrl("/search/electronics");
         break;
       case 1:
-        return "/search/jewelery";
+        return langUrl("/search/jewelery");
         break;
       case 2:
-        return "/search/men's%20clothing";
+        return langUrl("/search/men's%20clothing");
         break;
       case 3:
-        return "/search/women's%20clothing";
+        return langUrl("/search/women's%20clothing");
         break;
       default:
-        return "/404";
+        return langUrl("/404");
         break;
     }
   };
@@ -39,7 +53,7 @@ function Categories() {
       <p className="text-md">{translationText("Collections")}</p>
       <div className="pt-2 hidden md:block">
         <Link
-          href={"/search"}
+          href={langUrl("/search")}
           className="text-md  hover:underline hover:text-white underline-offset-4"
         >
           {translationText("All")}

@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useState, useEffect } from "react";
+import { getLangUrl } from "@/lib/utils";
 import useFetchGetInCategories from "@/app/api/hooks/categories/useFetchGetInCategoires";
 import { Button } from "@/components/atoms/button";
 import { Product } from "@/app/type/product";
@@ -11,6 +13,7 @@ interface RelatedProductsProps {
 }
 const RelatedProducts = ({ category }: RelatedProductsProps) => {
   const translationText = useTranslations();
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
   let currentCategoryLink = "";
   switch (category) {
     case "men's clothing":
@@ -32,10 +35,14 @@ const RelatedProducts = ({ category }: RelatedProductsProps) => {
     error,
   } = useFetchGetInCategories(currentCategoryLink, "");
 
+  useEffect(() => {
+    setCurrentUrl(window.location);
+  }, []);
+
   const router = useRouter();
   const handleClick = (id: number) => {
-    if (id) {
-      router.push(`/product/${id}`);
+    if (id && currentUrl) {
+      router.push(getLangUrl(currentUrl, `/product/${id}`));
     }
     return;
   };

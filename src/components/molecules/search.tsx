@@ -4,15 +4,21 @@ import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom } from "jotai";
 import { useTranslations } from "next-intl";
+import { getLangUrl } from "@/lib/utils";
 import { Input } from "@/components/atoms/input";
 import { searchInputAtom } from "@/jotai/state";
 
 function Search() {
   const [_s, setSearchInput] = useAtom(searchInputAtom);
   const [tempInput, setTempInput] = useState<string>("");
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const translationText = useTranslations();
+
+  useEffect(() => {
+    setCurrentUrl(window.location);
+  }, []);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTempInput(event.target.value);
@@ -25,7 +31,8 @@ function Search() {
     } else {
       params.delete("q");
     }
-    router.push(`/search?${params.toString()}`);
+    if (currentUrl)
+      router.push(getLangUrl(currentUrl, `/search?${params.toString()}`));
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {

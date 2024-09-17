@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { searchInputAtom } from "@/jotai/state";
 import { useTranslations } from "next-intl";
+import { getLangUrl } from "@/lib/utils";
 import { useFetchAllProduct } from "@/app/api/hooks/product/useFetchAllProduct";
 import Header from "@/components/organisms/header";
 import SortBy from "@/components/organisms/sortby";
@@ -16,6 +17,7 @@ import { Product } from "@/app/type/product";
 const AllCategories = () => {
   const router = useRouter();
   const translationText = useTranslations();
+  const [currentUrl, setCurrentUrl] = useState<Location | null>(null);
   const [sortType, setSortType] = useState<string>("");
   const { data: allProduct, isLoading } = useFetchAllProduct(sortType);
 
@@ -26,9 +28,13 @@ const AllCategories = () => {
       )
     : allProduct;
 
+  useEffect(() => {
+    setCurrentUrl(window.location);
+  }, []);
+
   const handleClick = (id: number) => {
-    if (id) {
-      router.push(`/product/${id}`);
+    if (id && currentUrl) {
+      router.push(getLangUrl(currentUrl, `/product/${id}`));
     }
     return;
   };
