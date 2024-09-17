@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/jotai/state";
+import { useTranslations } from "next-intl";
 import useFetchProductById from "@/app/api/hooks/product/useFetchProductById";
 import {
   Breadcrumb,
@@ -22,6 +23,7 @@ import RelatedProducts from "@/components/molecules/related-products";
 const ProductById = () => {
   const params = useParams();
   const id = params.id;
+  const translationText = useTranslations();
   const {
     data: productInfo,
     error,
@@ -92,7 +94,7 @@ const ProductById = () => {
                   href="/search"
                   className=" hover:text-white hover:underline"
                 >
-                  All Products
+                  {translationText("All Products")}
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -137,7 +139,7 @@ const ProductById = () => {
             <h3 className="hover:text-white pb-2">{productInfo?.title}</h3>
             <Button>$ {productInfo?.price}</Button>
             <p className="pt-4 hover:text-white">
-              In Stock{" "}
+              {translationText("In Stock")}
               <Badge
                 variant={"outline"}
                 className="ms-2 text-sm border border-secondary text-secondary"
@@ -146,7 +148,7 @@ const ProductById = () => {
               </Badge>
             </p>
             <p className="pt-4 hover:text-white capitalize">
-              Categories
+              {translationText("Categories")}
               <Badge className="ms-2 bg-secondary hover:bg-secondary text-sm text-black">
                 {productInfo?.category}
               </Badge>
@@ -179,7 +181,7 @@ const ProductById = () => {
               className="my-2 font-solid w-1/3"
               role="link"
             >
-              Add To Cart
+              {translationText("Add To Cart")}
             </Button>
           </div>
         </div>

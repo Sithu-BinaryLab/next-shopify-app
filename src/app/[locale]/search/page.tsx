@@ -4,16 +4,18 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAtom } from "jotai";
 import { searchInputAtom } from "@/jotai/state";
+import { useTranslations } from "next-intl";
 import { useFetchAllProduct } from "@/app/api/hooks/product/useFetchAllProduct";
-import Categories from "@/components/organisms/categories";
 import Header from "@/components/organisms/header";
 import SortBy from "@/components/organisms/sortby";
 import { Button } from "@/components/atoms/button";
+import Categories from "@/components/organisms/categories";
 import Footer from "@/components/organisms/footer";
 import { Product } from "@/app/type/product";
 
 const AllCategories = () => {
   const router = useRouter();
+  const translationText = useTranslations();
   const [sortType, setSortType] = useState<string>("");
   const { data: allProduct } = useFetchAllProduct(sortType);
 
@@ -65,7 +67,7 @@ const AllCategories = () => {
               ))
             ) : (
               <p className="h-screen col-span-3 w-full flex items-center justify-center">
-                Opps!...No products found.
+                {translationText("No products found")}
               </p>
             )}
           </div>

@@ -6,18 +6,22 @@ import React, { useEffect, useState, Suspense } from "react";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/jotai/state";
 import { user } from "@/jotai/state";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/atoms/button";
 import { Avatar, AvatarImage } from "@/components/atoms/avatar";
 import Search from "@/components/molecules/search";
+import LanguageDropdown from "@/components/molecules/language";
 import LogIn from "@/components/organisms/login";
 
 function Header() {
   const [pathname, setPathname] = useState<string>("");
   const [openLogIn, setOpenLogIn] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [userData, _] = useAtom(user);
   const [cart, _add] = useAtom(cartAtom);
 
+  const translationText = useTranslations();
   const router = useRouter();
 
   useEffect(() => {
@@ -91,7 +95,7 @@ function Header() {
               } pr-6 mr-3`}
               href={"/search"}
             >
-              All
+              {translationText("All")}
             </Link>
             <Link
               className={`${
@@ -123,9 +127,15 @@ function Header() {
         </div>
 
         <div className="flex flex-row justify-end">
+          <div className="lg:block hidden my-auto ml-4">
+            <LanguageDropdown
+              setIsOpenPopup={setIsOpenPopup}
+              isOpenPopup={isOpenPopup}
+            />
+          </div>
           <Button
             variant="ghost"
-            className="mx-1 lg:block hidden"
+            className="mx-1 lg:block hidden mb-2"
             onClick={openLogInDialog}
           >
             {userData.token && userData.token?.length !== 0 ? (
@@ -133,7 +143,7 @@ function Header() {
                 <AvatarImage src={"/assets/avatar.jpg"} />
               </Avatar>
             ) : (
-              "Login"
+              translationText("Login")
             )}
           </Button>
           <Button
@@ -191,7 +201,7 @@ function Header() {
                 href={"/"}
                 onClick={toggleDrawer}
               >
-                Home
+                {translationText("Home")}
               </Link>
 
               <Link
@@ -203,7 +213,7 @@ function Header() {
                 href={"/search"}
                 onClick={toggleDrawer}
               >
-                All
+                {translationText("All")}
               </Link>
               <Link
                 className={`${
@@ -214,7 +224,7 @@ function Header() {
                 href={"/search/electronics"}
                 onClick={toggleDrawer}
               >
-                Electronics
+                {translationText("Electronics")}
               </Link>
               <Link
                 className={`${
@@ -225,14 +235,14 @@ function Header() {
                 href={"/search/jewelery"}
                 onClick={toggleDrawer}
               >
-                Jewelery
+                {translationText("Jewelery")}
               </Link>
               <Button
                 variant="ghost"
                 className="absolute bottom-60"
                 onClick={openLogInDialog}
               >
-                Login
+                {translationText("Login")}
               </Button>
             </div>
           </div>

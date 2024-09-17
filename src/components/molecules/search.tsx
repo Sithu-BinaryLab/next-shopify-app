@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom } from "jotai";
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/atoms/input";
 import { searchInputAtom } from "@/jotai/state";
 
@@ -11,6 +12,7 @@ function Search() {
   const [tempInput, setTempInput] = useState<string>("");
   const router = useRouter();
   const searchParams = useSearchParams();
+  const translationText = useTranslations();
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTempInput(event.target.value);
@@ -47,7 +49,7 @@ function Search() {
         className={`border border-grey-foreground text-white focus:placeholder-white bg-grey rounded-[8px] mr-1 h-[34px] text-md w-[350px] pl-8 transition-all duration-500`}
         onChange={handleSearchChange}
         onKeyDown={handleKeyDown}
-        placeholder="Search for products"
+        placeholder={translationText("Search for products")}
         value={tempInput}
       />
       <Image

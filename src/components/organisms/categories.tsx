@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { useTranslations } from "next-intl";
 import { useFetchCategories } from "@/app/api/hooks/categories/useFetchCategories";
 import {
   DropdownMenu,
@@ -11,6 +12,7 @@ import {
 
 function Categories() {
   const { data: categories } = useFetchCategories();
+  const translationText = useTranslations();
 
   const routeLink = (id: number) => {
     switch (id) {
@@ -34,15 +36,15 @@ function Categories() {
 
   return (
     <div className="mb-5">
-      <p className="text-md">Collections</p>
+      <p className="text-md">{translationText("Collections")}</p>
       <div className="pt-2 hidden md:block">
         <Link
           href={"/search"}
           className="text-md  hover:underline hover:text-white underline-offset-4"
         >
-          All
+          {translationText("All")}
         </Link>
-        {categories?.map((category: any, index: any) => (
+        {categories?.map((category: string, index: number) => (
           <div key={index} className="py-1">
             <Link
               href={routeLink(index)}
