@@ -50,7 +50,7 @@ function SortBy({ sortType, setSortType }: SortByProps) {
             className="cursor-pointer w-full flex items-center justify-between outline-none
           rounded border border-white/50 px-4 py-2 text-white text-md "
           >
-            <p className="text-md pb-1">Sort by</p>
+            <p className="text-md pb-1">{translationText("Sort by")}</p>
             <ChevronDownIcon width={20} height={20} />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="min-w-[80vw] bg-black ">

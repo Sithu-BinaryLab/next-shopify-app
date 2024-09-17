@@ -95,7 +95,7 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
                   </p>
                   {errorMessage && (
                     <p className="text-red-400 font-semibold text-sm pb-2">
-                      {translationText(errorMessage)}
+                      *{translationText(errorMessage)}
                     </p>
                   )}
                   <div>
