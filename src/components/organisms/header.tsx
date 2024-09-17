@@ -209,7 +209,7 @@ function Header() {
                   pathname === "/search"
                     ? "font-normal text-[#E6FB64] text-lg"
                     : "hover:text-surface-foreground text-[#F3F3F3] text-lg font-normal"
-                } py-2 mt-3 cursor-pointer`}
+                } py-2 cursor-pointer`}
                 href={"/search"}
                 onClick={toggleDrawer}
               >
@@ -239,7 +239,7 @@ function Header() {
               </Link>
               <Button
                 variant="ghost"
-                className="justify-start flex mt-4 px-0"
+                className="justify-start flex mt-5 px-0"
                 onClick={openLogInDialog}
               >
                 {userData.token && userData.token?.length !== 0 ? (
