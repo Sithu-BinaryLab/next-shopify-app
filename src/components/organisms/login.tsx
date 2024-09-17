@@ -27,7 +27,12 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
 
   const isButtonDisabled = userName.trim() === "" || password.trim() === "";
 
-  const { mutate: accountData, isPending } = useFetchLoginAccount();
+  const {
+    mutate: accountData,
+    isError,
+    isPending,
+    isSuccess,
+  } = useFetchLoginAccount();
 
   const handleLogin = async () => {
     accountData(

@@ -10,6 +10,5 @@ export const useFetchJeweleryList = (): UseQueryResult<
     queryKey: ["all jewelery data list"],
     queryFn: fetchJeweleryList,
     retry: 1,
-    staleTime: 5 * 60 * 1000,
   });
 };

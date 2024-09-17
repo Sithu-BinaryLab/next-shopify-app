@@ -44,7 +44,7 @@ const AllCategories = () => {
           {isLoading ? (
             <Loading />
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 pb-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {filteredProducts && filteredProducts?.length > 0 ? (
                 filteredProducts.map((item: Product, index: number) => (
                   <div
