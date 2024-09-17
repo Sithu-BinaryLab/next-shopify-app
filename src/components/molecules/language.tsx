@@ -58,7 +58,7 @@ function LanguageDropdown({
         <div className="flex items-center gap-x-3">
           <Image
             src={"/assets/world.svg"}
-            alt="Beatpulse logo"
+            alt="Shopify logo"
             width={20}
             height={20}
           />
@@ -100,7 +100,7 @@ function LanguageDropdown({
                 <span>
                   <Image
                     src={"/assets/down-arrow.svg"}
-                    alt="Beatpulse logo"
+                    alt="Shopify logo"
                     width={15}
                     height={15}
                   />
@@ -121,7 +121,7 @@ function LanguageDropdown({
                       <span>
                         <Image
                           src={"/assets/tick.svg"}
-                          alt="Beatpulse logo"
+                          alt="Shopify logo"
                           width={12}
                           height={12}
                           className="text-white"

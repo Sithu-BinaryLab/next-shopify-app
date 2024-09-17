@@ -61,7 +61,7 @@ export default function LogIn({ openLogIn, closeLogInDialog }: LogInProps) {
                     <button onClick={closeLogInDialog}>
                       <Image
                         src={"/assets/auths/cross.svg"}
-                        alt="Beatpulse logo"
+                        alt="Shopify logo"
                         width={30}
                         height={30}
                       />
