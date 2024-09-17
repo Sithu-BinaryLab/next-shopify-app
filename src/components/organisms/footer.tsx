@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -11,10 +12,11 @@ function Footer() {
 
   return (
     <main>
-      <div className="flex space-x-10 md:flex-row flex-col">
+      <div role="contentinfo" className="flex space-x-10 md:flex-row flex-col">
         <div className="flex gap-x-4 items-center">
           <Image
             src={"/assets/header/shopify.svg"}
+            fetchPriority="high"
             alt="shopify logo"
             className=""
             width={30}

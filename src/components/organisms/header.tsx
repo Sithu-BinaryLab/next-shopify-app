@@ -45,7 +45,10 @@ function Header() {
   };
 
   return (
-    <header className="w-full top-0 fixed bg-background z-40 py-[20px]">
+    <header
+      role="banner"
+      className="w-full top-0 fixed bg-background z-40 py-[20px]"
+    >
       <div className="container flex flex-row items-center justify-between mx-auto px-2 md:px-10">
         <div className="flex flex-row items-center">
           <div className="flex items-center space-x-5">
@@ -59,6 +62,7 @@ function Header() {
               <span className="sr-only">Open main menu</span>
               <Image
                 src={"/assets/header/menu.svg"}
+                fetchPriority="high"
                 alt="menu icon"
                 className="hover:opacity-75 text-surface-foreground"
                 width={24}
@@ -72,6 +76,7 @@ function Header() {
               <div className="flex mr-2 md:mr-10 space-x-4">
                 <Image
                   src={"/assets/header/shopify.svg"}
+                  fetchPriority="high"
                   alt="shopify logo"
                   className=""
                   width={30}
@@ -145,6 +150,7 @@ function Header() {
             {cart.length}
             <Image
               src={"/assets/header/cart.svg"}
+              fetchPriority="high"
               alt={"cart icon"}
               className="ml-[4px] text-surface hover:text-surface-foreground"
               width={24}
@@ -163,11 +169,13 @@ function Header() {
                 height={30}
                 alt="Cross Icon"
                 src={"/assets/auths/cross.svg"}
+                fetchPriority="high"
                 className="cursor-pointer"
               />
               <div className="flex space-x-2">
                 <Image
                   src={"/assets/header/shopify.svg"}
+                  fetchPriority="high"
                   alt="Shopify logo"
                   width={40}
                   height={32}
