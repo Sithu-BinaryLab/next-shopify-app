@@ -10,5 +10,6 @@ export const useFetchElectronicList = (): UseQueryResult<
     queryKey: ["all electronic data list"],
     queryFn: fetchElectronicList,
     retry: 1,
+    staleTime: 5 * 60 * 1000,
   });
 };
