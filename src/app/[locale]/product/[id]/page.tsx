@@ -138,7 +138,7 @@ const ProductById = () => {
           <div className="w-full mt-10 col-span-2 ">
             <h3 className="hover:text-white pb-2">{productInfo?.title}</h3>
             <Button>$ {productInfo?.price}</Button>
-            <p className="pt-4 hover:text-white">
+            <div className="pt-4 hover:text-white">
               {translationText("In Stock")}
               <Badge
                 variant={"outline"}
@@ -146,13 +146,13 @@ const ProductById = () => {
               >
                 {productInfo?.rating.count}
               </Badge>
-            </p>
-            <p className="pt-4 hover:text-white capitalize">
+            </div>
+            <div className="pt-4 hover:text-white capitalize">
               {translationText("Categories")}
               <Badge className="ms-2 bg-secondary hover:bg-secondary text-sm text-black">
                 {productInfo?.category}
               </Badge>
-            </p>
+            </div>
             <div className="flex items-center gap-4 mt-4 cursor-pointer select-none">
               <div
                 className="border rounded-full w-10 h-10 flex items-center justify-center text-xl text-white"
