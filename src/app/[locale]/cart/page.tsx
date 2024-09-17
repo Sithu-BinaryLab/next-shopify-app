@@ -44,53 +44,56 @@ const Account = () => {
                     return <CartItem key={index} data={item} />;
                   })}
                 </div>
-
-                <div className="bg-background-grey lg:rounded-[8px] py-5 px-4 lg:min-w-[380px]">
-                  <div className="flex justify-between items-center mb-5">
-                    <h3 className="text-base font-solid">
-                      {translationText("Total summarize")}
-                    </h3>
-                  </div>
-                  <hr className="my-[15px] border-grey" />
-                  <input
-                    type="text"
-                    className="w-full rounded-sm px-3 my-2 text-md text-surface-foreground h-[42px]"
-                    placeholder={translationText("Apply coupon code")}
-                  />
-                  <hr className="mt-3 mb-4 border-grey" />
-                  <div className="flex justify-between items-center">
-                    <p className="text-md text-white">
-                      {translationText("Total")}
+                <div>
+                  <div className="bg-background-grey lg:rounded-[8px] py-5 px-4 lg:min-w-[380px]">
+                    <div className="flex justify-between items-center mb-5">
+                      <h3 className="text-base font-solid">
+                        {translationText("Total summarize")}
+                      </h3>
+                    </div>
+                    <hr className="my-[15px] border-grey" />
+                    <input
+                      type="text"
+                      className="w-full rounded-sm px-3 my-2 text-md text-surface-foreground h-[42px]"
+                      placeholder={translationText("Apply coupon code")}
+                    />
+                    <hr className="mt-3 mb-4 border-grey" />
+                    <div className="flex justify-between items-center">
+                      <p className="text-md text-white">
+                        {translationText("Total")}
+                      </p>
+                      <p className="text-xl text-white">
+                        $ {totalPrice.toFixed(2)}
+                      </p>
+                    </div>
+                    <hr className="my-4 border-grey" />
+                    <p className="text-md text-surface mb-2">
+                      {translationText("Date")}: {new Date().toDateString()}
                     </p>
-                    <p className="text-xl text-white">$ {totalPrice}</p>
+                    <p className="text-md text-surface mb-2">
+                      {translationText("Reference code")} : ASVETHW20241244
+                    </p>
+                    <Button
+                      variant="default"
+                      size={"lg"}
+                      className="my-2 w-full font-solid"
+                      role="link"
+                      onClick={checkoutClick}
+                      disabled={!cart.length}
+                    >
+                      {translationText("Check out")}
+                    </Button>
+                    <p
+                      className="text-xs text-surface text-center mt-2 cursor-pointer"
+                      onClick={() => router.push("/terms-conditions")}
+                    >
+                      {translationText(
+                        "By clicking the button you accept the products License Agreements"
+                      )}
+                      <br />
+                      {translationText("Please read our Refund Policy")}
+                    </p>
                   </div>
-                  <hr className="my-4 border-grey" />
-                  <p className="text-md text-surface mb-2">
-                    {translationText("Date")}: {new Date().toDateString()}
-                  </p>
-                  <p className="text-md text-surface mb-2">
-                    {translationText("Reference code")} : ASVETHW20241244
-                  </p>
-                  <Button
-                    variant="default"
-                    size={"lg"}
-                    className="my-2 w-full font-solid"
-                    role="link"
-                    onClick={checkoutClick}
-                    disabled={!cart.length}
-                  >
-                    {translationText("Check out")}
-                  </Button>
-                  <p
-                    className="text-xs text-surface text-center mt-2 cursor-pointer"
-                    onClick={() => router.push("/terms-conditions")}
-                  >
-                    {translationText(
-                      "By clicking the button you accept the products License Agreements"
-                    )}
-                    <br />
-                    {translationText("Please read our Refund Policy")}
-                  </p>
                 </div>
               </div>
             </div>
